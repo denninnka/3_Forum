@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Съобщения';
-include './includes/header.php';
+include dirname(__FILE__).'/includes/header.php';
 
 if (isset($_SESSION['isLogged']) && isset($_SESSION['username'])) {
     $con = mysqli_connect('localhost', 'root', 'wdr9173zdv50', 'forum');
@@ -49,17 +49,15 @@ if (isset($_SESSION['isLogged']) && isset($_SESSION['username'])) {
     echo "</select>
 		</form>";
     if (isset($_POST['newmsg'])) {
-        header('Location: ./newmsg.php');
+        header('Location: newmsg.php');
         exit;
     }
-    if (isset($_POST['delete'])) {
-        foreach ($_POST['delete'] as $value) {
-            $del = mysqli_query($con, 'DELETE FROM msg WHERE msg_id=' . $value);
-        }
+    if ($_SESSION['admin'] && isset($_POST['delete'])) {       
+            $del = mysqli_query($con, 'DELETE FROM msg WHERE msg_id in ('.implode(',', $_POST['delete']).')');
     }
     if (isset($_POST['exit'])) {
         session_destroy();
-        header('Location: ./index.php');
+        header('Location: index.php');
         exit;
     }
     if ($filterBygroup != -1) {
@@ -103,5 +101,5 @@ if (!isset($_SESSION['isLogged']) || !isset($_SESSION['username'])) {
 ?>
 
 <?php
-include './includes/footer.php'
+include dirname(__FILE__).'/includes/footer.php'
 ?>

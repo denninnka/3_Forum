@@ -1,7 +1,7 @@
 <?php
 mb_internal_encoding('UTF-8');
 $pageTitle = 'Регистрация';
-include './includes/header.php';
+include dirname(__FILE__).'/includes/header.php';
 
 $connection = mysqli_connect('localhost', 'root', 'wdr9173zdv50', 'forum');
 if (!$connection) {
@@ -10,7 +10,7 @@ if (!$connection) {
 }
 mysqli_set_charset($connection, 'utf8');
 
-if ($_POST) {
+if (isset($_POST['newreg'])) {
     $username = trim($_POST['username']);
     $pass     = trim($_POST['password']);
     $repass   = trim($_POST['repassword']);
@@ -40,7 +40,7 @@ if ($_POST) {
     if (!$error) {
         $q = 'INSERT INTO users (username, password) VALUES ("' . $username . '", "' . $pass . '")';
         if (mysqli_query($connection, $q)) {
-            header('Location: ./index.php');
+            header('Location: index.php');
             exit;
         } else {
             echo "Error";
@@ -49,7 +49,7 @@ if ($_POST) {
     }
 }
 if (isset($_POST['nazad'])) {
-    header('Location: ./index.php');
+    header('Location: index.php');
     exit;
 }
 ?>
@@ -66,5 +66,5 @@ if (isset($_POST['nazad'])) {
 </form>
 
 <?php
-include './includes/footer.php'
+include dirname(__FILE__).'/includes/footer.php'
 ?>

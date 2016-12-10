@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['isLogged'])) {
     $_SESSION['isLogged'] = false;
 }
-require './includes/menuselect.php';
+require 'includes/menuselect.php';
 ?>
 
 <!DOCTYPE html>

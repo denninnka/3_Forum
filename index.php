@@ -1,9 +1,9 @@
 <?php
 $pageTitle = 'Форум';
-include './includes/header.php';
+include dirname(__FILE__).'/includes/header.php';
 
 if (isset($_POST['reg'])) {
-    header('Location: ./registration.php');
+    header('Location: registration.php');
     exit;
 }
 $con = mysqli_connect('localhost', 'root', 'wdr9173zdv50', 'forum');
@@ -54,5 +54,5 @@ if (isset($_POST['vhod'])) {
 </form>
 
 <?php
-include './includes/footer.php'
+include dirname(__FILE__).'/includes/footer.php'
 ?>
